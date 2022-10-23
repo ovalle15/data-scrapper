@@ -1,0 +1,10 @@
+html {
+    min-height: 100vh;
+    min-width: 100vw;
+}
+
+body {
+    height: 100%;
+    padding: 10px 20px;
+    width: 100%;
+}
