@@ -1,5 +1,7 @@
 const HOME = '/';
 
-export const routes = {
+const routes = {
     HOME
 };
+
+export default routes;
