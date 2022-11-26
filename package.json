@@ -11,8 +11,11 @@
   ],
   "author": "Andrea Ovalle",
   "dependencies": {
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/material": "^5.10.15",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0",
     "react-router-dom": "^6.4.2",
     "rest": "^1.3.1"
   },

@@ -1,30 +1,28 @@
 package com.crawlerao.aoapi;
-
 import java.util.HashMap;
 
-import com.crawlerao.globals.Globals;
 
 public class ResponseContext {
 
-  public HashMap<String, String> videoInfo = new HashMap<String, String>();
+  public HashMap<String, String> videoInfo = new HashMap<String, String>(10);
 
   public class YouTube {
     public String title;
-    private String videoURL;
+    private String videoID;
 
     public void addTitle(String title) {
       this.title = title;
     }
     public String setVideoUrl(String videoId){
-      videoURL = Globals.queryUrl + videoId.replaceAll("\"", "");
-      return videoURL;
+      this.videoID = videoId.replaceAll("\"", "");
+      return this.videoID;
     }
-    public String getTitle() {
-      return title;
+    public String getVideoID() {
+      return this.videoID;
     }
     public HashMap<String, String> getVideoObject() {
-      videoInfo.put("videoUrl",videoURL);
-      videoInfo.put("title",title);
+      videoInfo.put(this.videoID, this.title);
+
       return videoInfo;
     }
   }

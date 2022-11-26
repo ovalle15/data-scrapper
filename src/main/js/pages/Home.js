@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { PageTitle } from '../components';
+import { PageTitle , VideoDisplay } from '../components';
 
 const Home = ({
     children,
@@ -12,6 +12,7 @@ const Home = ({
                 titleText={pageTitle}
             />
             {children}
+            <VideoDisplay></VideoDisplay>
         </div>
     );
 };

@@ -5,5 +5,6 @@ public class Globals {
   public static String TAG = "script";
   public static String queryUrl = "http://www.youtube.com/watch?v=";
   public static String defaultQuery = "maru+cat";
+  public static String embedUrl = "https://www.youtube.com/embed/";
 
 }

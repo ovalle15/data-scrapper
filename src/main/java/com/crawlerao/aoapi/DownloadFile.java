@@ -5,18 +5,20 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import java.util.HashSet;
-import java.util.Set;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import com.crawlerao.aoapi.ResponseContext.YouTube;
 import com.crawlerao.globals.*;
 
 
 public class DownloadFile {
 
-  public static void VideoFetchingYouTube(String field) throws IOException , SSLException {
+  public static HashMap<String, String> VideoFetchingYouTube(String field) throws IOException , SSLException {
     ResponseContext res = new ResponseContext();
     YouTube youtube = res.new YouTube();
-    Set<Object> videos = new HashSet<Object>(10);
+    HashMap<String, String> videos = new HashMap<String, String>();
     String url_P = String.format(Globals.URL, field);
 
     Document file = Jsoup.connect(url_P).header("User-Agent", "Chrome").get();
@@ -42,12 +44,35 @@ public class DownloadFile {
 
           youtube.addTitle("placeholder");
           youtube.setVideoUrl(id);
-          videos.add(youtube.getVideoObject());
+          videos = youtube.getVideoObject();
 
           lastIndex += 21;
         }
+
       }
     }
+    // Update title
+
+    Iterator it = videos.entrySet().iterator();
+    while (it.hasNext()) {
+
+        Map.Entry pair = (Map.Entry) it.next();
+
+        System.out.println(pair.getKey() + " ==> " + pair.getValue());
+        String notEnbedUrl = Globals.queryUrl + pair.getKey();
+        Document page = Jsoup.connect(notEnbedUrl).header("User-Agent", "Chrome").get();
+
+        String title  = page.title();
+        System.out.println(title);
+        String k = (String) pair.getKey();
+        try {
+        videos.put(k , title);
+        } catch (Exception e) {
+          System.out.println(e);
+        }
+    }
     System.out.println(videos);
+    return videos;
   }
+
 }
