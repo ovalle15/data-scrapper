@@ -1,19 +1,23 @@
 import React from 'react';
 
-import { PageTitle , VideoDisplay } from '../components';
+
+import { PageTitle, SearchBox } from '../components';
+import { Container } from '@mui/material';
 
 const Home = ({
-    children,
-    pageTitle = "This is the home page. :)"
+    pageTitle = "This is the home page"
+
 }) => {
     return (
-        <div id="home-content">
-            <PageTitle
-                titleText={pageTitle}
-            />
-            {children}
-            <VideoDisplay></VideoDisplay>
-        </div>
+        // <div>
+            <Container maxWidth="md" className="container-override">
+                <PageTitle
+                        titleText={pageTitle}
+                    />
+            <SearchBox/>
+            </Container>
+
+        // </div>
     );
 };
 

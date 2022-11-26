@@ -1,7 +1,9 @@
 const HOME = '/';
+const VIDEOS = '/videos/'
 
 const routes = {
-    HOME
+    HOME,
+    VIDEOS
 };
 
 export default routes;

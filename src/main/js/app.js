@@ -9,9 +9,8 @@ import {
 } from 'react-router-dom';
 
 import { routes } from './constants';
-import { Home } from './pages';
+import { Home, Videos } from './pages';
 
-// import client from './client';
 
 const App = () => {
 
@@ -20,6 +19,7 @@ const App = () => {
     const publicViews = (
         <Routes>
             <Route path={routes.HOME} element={<Home />} />
+            <Route path={routes.VIDEOS} element={<Videos />} />
             <Route path="*" element={<p>Path not resolved</p>} />
         </Routes>
     );
@@ -28,9 +28,9 @@ const App = () => {
         <Router>
             {/* <NavBar /> */}
             <div className="app-main">
-                <div className="view-container">
+                {/* <div className="view-container"> */}
                     {publicViews}
-                </div>
+                {/* </div> */}
             </div>
         </Router>
     );

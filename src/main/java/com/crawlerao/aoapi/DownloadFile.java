@@ -15,11 +15,11 @@ import com.crawlerao.globals.*;
 
 public class DownloadFile {
 
-  public static HashMap<String, String> VideoFetchingYouTube(String field) throws IOException , SSLException {
+  public static HashMap<String, String> VideoFetchingYouTube(String query) throws IOException , SSLException {
     ResponseContext res = new ResponseContext();
     YouTube youtube = res.new YouTube();
     HashMap<String, String> videos = new HashMap<String, String>();
-    String url_P = String.format(Globals.URL, field);
+    String url_P = String.format(Globals.URL, query);
 
     Document file = Jsoup.connect(url_P).header("User-Agent", "Chrome").get();
     Elements doc = file.body().getElementsByTag(Globals.TAG);

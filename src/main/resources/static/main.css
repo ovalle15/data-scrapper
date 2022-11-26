@@ -8,7 +8,11 @@ body {
     padding: 10px 20px;
     width: 100%;
 }
-
+.container-override {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
 /* .responsive-video-class {
     overflow: hidden;
     padding-bottom: 56.25%;
