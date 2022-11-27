@@ -9,11 +9,11 @@ const SearchBox = (props) => {
 
   const modifyString = () => {
     const re = /(~|`|!|@|#|$|%|^|&|\*|\(|\)|{|}|\[|\]|;|:|\"|'|<|,|\.|>|\?|\/|\\|\||-|_|\+|=)/g
-    const valList = inputValue.replace(re," ").split(" ");
+    const valList = inputValue.replace(re, " ").split(" ");
+    console.log(valList)
     const v = valList.filter(word => word.length > 0)
-    console.log(v)
-    return v
-    // query.add(input)
+    console.log("final --> " + v.join("+"))
+    return v.join("+")
   }
 
   const updateState = (e) => {
@@ -48,16 +48,6 @@ const SearchBox = (props) => {
               Search
           </Button>
         </Box>
-        // <Box
-        //   component="form"
-        //   sx={{
-        //     '& > :not(style)': { m: 1, width: '80ch' },
-        //   }}
-        //   noValidate
-        //   autoComplete="off"
-        // >
-        //   <TextField id="outlined-basic" label="Search" variant="outlined" />
-        // </Box>
     );
   }
 
