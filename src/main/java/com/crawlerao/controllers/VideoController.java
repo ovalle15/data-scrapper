@@ -5,7 +5,6 @@ import java.util.HashMap;
 
 import javax.net.ssl.SSLException;
 
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,13 +21,5 @@ public class  VideoController {
     postQuery = DownloadFile.VideoFetchingYouTube(query);
     return postQuery;
   }
-
-  // @GetMapping("/videos")
-  // public HashMap<String,String> getQueryResults() {
-  //   System.out.println("postQuery --> " + postQuery);
-  //   return postQuery;
-  // }
-
-
 }
 

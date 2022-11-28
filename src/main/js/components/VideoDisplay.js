@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { styled } from "@mui/material/styles";
+import styled from 'styled-components';
+import { styled as muiStyled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 
-const Item = styled(Paper)(({ theme }) => ({
+const Item = muiStyled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
   padding: theme.spacing(1),
@@ -12,74 +13,47 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary
 }));
 
+const StyledItem = styled(Item)`
+  min-height: 300px;
+`;
+
+const VideoEmbed = styled.embed`
+  display: block;
+  height: 20em;
+  margin: 0 auto;
+  width: 100%;
+`;
+
+const VideoTitle = styled.span`
+  display: block;
+  margin: 0 15px;
+  font-size: 1.2em
+`;
+
 function YouTubeDisplay ({ videos }) {
-
-  // const [resBody, setBody] = useState("");
-  // async function setVideos () {
-  //   await fetch('http://localhost:9000/videos')
-  //     .then((response) => {
-  //       const contentType = response.headers.get('content-type');
-  //       if (!contentType || !contentType.includes('application/json')) {
-  //         throw new TypeError("Oops, we haven't got JSON!");
-  //       }
-  //       return response.json();
-  //     })
-  //     .then((data) => {
-  //       console.log("data ====> ", data)
-  //       try {
-  //         setBody(data)
-  //         console.log("data has been processed" + data)
-  //       } catch {
-  //         console.log("Error in setBody")
-  //       }
-  //     })
-  //     .catch((error) => console.error(error));
-  // }
-
-  // useEffect(() => {
-  //    setVideos()
-  // }, [])
 
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid
         container
-        spacing={{ xs: 2, md: 3 }}
-        columns={{ xs: 4, sm: 8, md: 12 }}
+        spacing={3}
       >
 
         {Object.keys(videos).map((key, index) => (
-          <Grid item xs={2} sm={4} md={4} key={index}>
-             <iframe
-                // width="80"
-                // height="315"
-                // title={`${title}`}
+          <Grid item xs={6} key={index}>
+            <StyledItem href={`https://www.youtube.com/embed/${key}`}>
+              <VideoEmbed
                 src={`https://www.youtube.com/embed/${key}`}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                // allowFullScreen
-                />
-            <Item href={`https://www.youtube.com/embed/${key}`}>
-              {videos[key]}
-            </Item>
+              />
+              <VideoTitle>
+                {videos[key]}
+              </VideoTitle>
+            </StyledItem>
           </Grid>
         ))}
       </Grid>
     </Box>
   );
 }
-  // <div className="responsive-video-class">
-  //   <iframe
-  //   width="560"
-  //   height="315"
-  //   title={`${title}`}
-  //   src={`https://www.youtube.com/embed/${embedId}`}
-  //   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-  //   allowFullScreen
-  //   />
-  // </div>
-// );
-// YouTubeDisplay.PropTypes = {
-//   embedId: ReactPropTypes.string.isRequired
-// };
 
 export default YouTubeDisplay;
