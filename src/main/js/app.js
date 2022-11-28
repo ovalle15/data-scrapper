@@ -5,7 +5,8 @@ import ReactDOM from 'react-dom';
 import {
     BrowserRouter as Router,
     Route,
-    Routes
+    Routes,
+    Switch
 } from 'react-router-dom';
 
 import { routes } from './constants';
@@ -18,9 +19,11 @@ const App = () => {
 
     const publicViews = (
         <Routes>
+
             <Route path={routes.HOME} element={<Home />} />
-            <Route path={routes.VIDEOS} element={<Videos />} />
+            {/* <Route path={routes.VIDEOS} element={<Videos />} /> */}
             <Route path="*" element={<p>Path not resolved</p>} />
+
         </Routes>
     );
 

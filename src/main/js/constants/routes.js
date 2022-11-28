@@ -1,5 +1,5 @@
 const HOME = '/';
-const VIDEOS = '/videos/'
+const VIDEOS = '/videos'
 
 const routes = {
     HOME,
