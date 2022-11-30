@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { FormControl, InputLabel , OutlinedInput , Button} from '@mui/material';
+import { FormControl, InputLabel , OutlinedInput , Button } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 
 
-const SearchBox = ({ setVideos, onClickHandler }) => {
+const SearchBox = ({ onClickHandler , isLoading}) => {
   const [inputValue, setInputValue] = useState("");
 
   const modifyString = () => {
     const re = /(~|`|!|@|#|$|%|^|&|\*|\(|\)|{|}|\[|\]|;|:|\"|'|<|,|\.|>|\?|\/|\\|\||-|_|\+|=)/g
     const valList = inputValue.replace(re, " ").split(" ");
-    // console.log(valList)
     const v = valList.filter(word => !!word )
     console.log("final --> " + v.join("+"))
     return v.join("+")
@@ -18,13 +18,11 @@ const SearchBox = ({ setVideos, onClickHandler }) => {
 
   const updateState = (e) => {
     setInputValue(e.target.value);
-    // console.log(e.target.value);
   }
 
 
   const localOnClick = () => {
     const queryAsString = modifyString();
-
     return onClickHandler(queryAsString);
   }
 
@@ -38,14 +36,15 @@ const SearchBox = ({ setVideos, onClickHandler }) => {
               label="Terms"
             />
           </FormControl>
-          <Button
+          <LoadingButton
+            loading={isLoading}
             sx={{ m:1 }}
             variant="outlined"
             size="large"
             onClick={localOnClick}
           >
               Search
-          </Button>
+          </LoadingButton>
         </Box>
     );
   }

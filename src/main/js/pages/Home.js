@@ -6,13 +6,14 @@ import { Container } from '@mui/material';
 
 
 const Home = ({
-    pageTitle = "This is the home page"
+    pageTitle = "Search YouTube Videos"
 
 }) => {
     const [videos, setVideos] = React.useState({})
-    console.log("HOME: return videos ==>", videos)
+    const [isLoading, setIsLoading] = React.useState(false);
 
     const onClickHandler = async (queryString) => {
+        setIsLoading(true)
 
         await fetch('http://localhost:9000/videos', {
             method: 'POST',
@@ -25,13 +26,17 @@ const Home = ({
           .then(data => {
             console.log('second then block', { data });
             if (typeof data === "object" && Object.keys(data).length > 0) {
-              console.log("SearchBox: data ==>", data);
-
-              return setVideos(data);
+                console.log("SearchBox: data ==>", data);
+                setIsLoading(false);
+                console.log("after payload sent ==>",  isLoading);
+                return setVideos(data);
             }
+            setIsLoading(false);
             return { "message": "no videos :(" };
           });
     }
+
+
 
     return (
         <>
@@ -41,6 +46,7 @@ const Home = ({
                 />
                 <SearchBox
                     onClickHandler={onClickHandler}
+                    isLoading={isLoading}
                 />
 
             </Container>
@@ -48,6 +54,7 @@ const Home = ({
                 <VideoDisplay
                     videos={videos}
                 />
+
             </Container>
         </>
     );
