@@ -58,7 +58,7 @@ public class DownloadFile {
 
         Map.Entry pair = (Map.Entry) it.next();
 
-        System.out.println(pair.getKey() + " ==> " + pair.getValue());
+        // System.out.println(pair.getKey() + " ==> " + pair.getValue());
         String notEnbedUrl = Globals.queryUrl + pair.getKey();
         Document page = Jsoup.connect(notEnbedUrl).header("User-Agent", "Chrome").get();
 

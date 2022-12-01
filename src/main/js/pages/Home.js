@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 
 import { PageTitle, SearchBox, VideoDisplay } from '../components';
@@ -9,8 +9,8 @@ const Home = ({
     pageTitle = "Search YouTube Videos"
 
 }) => {
-    const [videos, setVideos] = React.useState({})
-    const [isLoading, setIsLoading] = React.useState(false);
+    const [videos, setVideos] = useState({})
+    const [isLoading, setIsLoading] = useState(false);
 
     const onClickHandler = async (queryString) => {
         setIsLoading(true)
@@ -35,9 +35,6 @@ const Home = ({
             return { "message": "no videos :(" };
           });
     }
-
-
-
     return (
         <>
             <Container maxWidth="md" className="container-override">
@@ -48,13 +45,12 @@ const Home = ({
                     onClickHandler={onClickHandler}
                     isLoading={isLoading}
                 />
-
             </Container>
             <Container>
                 <VideoDisplay
+                    isLoading={isLoading}
                     videos={videos}
                 />
-
             </Container>
         </>
     );

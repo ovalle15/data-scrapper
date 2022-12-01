@@ -8,7 +8,7 @@ public class DownloadToLocalMachine {
 
   public static void downloadToLocalMachine(String video) throws IOException, InterruptedException {
 
-    String[] command = {"youtube-dl", video};
+    String[] command = {"yt-dlp", video};
 
     ProcessBuilder process = new ProcessBuilder(command);
     Process proc;

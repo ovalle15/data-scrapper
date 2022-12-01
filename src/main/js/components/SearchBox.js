@@ -15,11 +15,9 @@ const SearchBox = ({ onClickHandler , isLoading}) => {
     console.log("final --> " + v.join("+"))
     return v.join("+")
   }
-
   const updateState = (e) => {
     setInputValue(e.target.value);
   }
-
 
   const localOnClick = () => {
     const queryAsString = modifyString();
@@ -28,7 +26,10 @@ const SearchBox = ({ onClickHandler , isLoading}) => {
 
     return (
       <Box>
-        <FormControl fullWidth sx={{ m: 1}}>
+        <FormControl
+            margin="dense"
+            fullWidth
+            sx={{ m: 1}}>
             <InputLabel > Terms </InputLabel>
             <OutlinedInput
               value={inputValue}

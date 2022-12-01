@@ -25,14 +25,10 @@ const App = () => {
 
         </Routes>
     );
-
     return (
         <Router>
-            {/* <NavBar /> */}
             <div className="app-main">
-                {/* <div className="view-container"> */}
-                    {publicViews}
-                {/* </div> */}
+                {publicViews}
             </div>
         </Router>
     );

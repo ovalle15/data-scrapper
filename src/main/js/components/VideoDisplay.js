@@ -1,15 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { styled as muiStyled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import { IconButton }  from '@mui/material';
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import { LoadingButton } from '@mui/lab';
-
-
-
 
 const Item = muiStyled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -36,17 +32,17 @@ const VideoTitle = styled.span`
   font-size: 1.2em
 `;
 
-function YouTubeDisplay ({ videos }) {
-  const [isLoadingBtt, setIsLoadingBtt] = React.useState(false);
-  const [key, updateKey] = React.useState("");
+const VideoDisplay = ({ videos }) => {
+  const [isLoadingBtt, setIsLoadingBtt] = useState(false);
+  const [key, updateKey] = useState("");
 
   const downloadFileOnClick = (value) => {
     if (value){
       console.log(" KEY on downloadFileOnClick  --> " , value);
-      setIsLoadingBtt(false)
+      setIsLoadingBtt(true)
       return fetch('http://localhost:9000/download', {
         method: 'POST',
-        body: key
+        body: value
       })
       .then(response => {
         console.log("DownloadButton res 1st block:");
@@ -55,11 +51,13 @@ function YouTubeDisplay ({ videos }) {
       })
       .then(data => {
         console.log("DownloadButton res 2nd block:", data);
+        setIsLoadingBtt(false)
         return data;
       });
     }
     else {
       console.log("Key is undefined !!! " + key)
+      setIsLoadingBtt(false)
     }
   }
 
@@ -70,9 +68,22 @@ function YouTubeDisplay ({ videos }) {
   }
 
 
-
   return (
+
+
     <Box sx={{ flexGrow: 1 }}>
+      <Grid item xs={1}>
+        <LoadingButton
+          style={{"display": "none"}}
+          loading={isLoadingBtt}
+          sx={{ m:1 }}
+          variant="outlined"
+          size="large"
+          // onClick={localOnClick}
+        >
+            Download All
+        </LoadingButton>
+      </Grid>
       <Grid
         container
         spacing={3}
@@ -86,21 +97,25 @@ function YouTubeDisplay ({ videos }) {
               <VideoTitle>
                 {videos[key]}
               </VideoTitle>
-              <LoadingButton
-                value={key}
-                size="medium"
-                loading={isLoadingBtt}
-                onClick={updateKeyToFetch}
-                startIcon={<FileDownloadOutlinedIcon size="large" />}
-                >
-                  Download
-            </LoadingButton>
             </StyledItem>
+            <Box sx={{ pt: 2 }}>
+              <LoadingButton
+                  size="small"
+                  variant="outlined"
+                  value={key}
+                  loading={isLoadingBtt}
+                  onClick={updateKeyToFetch}
+                  startIcon={<FileDownloadOutlinedIcon size="large" />}
+                  >
+                    Download
+                </LoadingButton>
+              </Box>
           </Grid>
         ))}
       </Grid>
+
     </Box>
   );
 }
 
-export default YouTubeDisplay;
+export default VideoDisplay;
