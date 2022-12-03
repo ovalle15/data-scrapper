@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { PageTitle, SearchBox, VideoDisplay } from '../components';
 import { Container } from '@mui/material';
 
-
 const Home = ({
     pageTitle = "Search YouTube Videos"
 

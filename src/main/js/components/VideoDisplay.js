@@ -71,7 +71,7 @@ const VideoDisplay = ({ videos }) => {
   return (
 
 
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1 , pt: 2}}>
       <Grid item xs={1}>
         <LoadingButton
           style={{"display": "none"}}
