@@ -30,7 +30,11 @@ public class  VideoController {
     if (query.length() > 0) {
       String urlString = "http://www.youtube.com/watch?v=" + query;
       System.out.println("URL localDownloadFile --> " + urlString);
-      DownloadToLocalMachine.downloadToLocalMachine(urlString);
+      Process p = DownloadToLocalMachine.downloadToLocalMachine(urlString);
+      Thread.sleep(4000);
+      if (!p.isAlive()){
+        DownloadToLocalMachine.splitVideos(query);
+      }
     } else {
       System.out.println("Query is empty ==> " + query);
     }
