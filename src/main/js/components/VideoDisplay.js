@@ -6,6 +6,7 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import { LoadingButton } from '@mui/lab';
+import SplitVideo from './SplitVideo';
 
 const Item = muiStyled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -98,7 +99,7 @@ const VideoDisplay = ({ videos }) => {
                 {videos[key]}
               </VideoTitle>
             </StyledItem>
-            <Box sx={{ pt: 2 }}>
+            <Box sx={{ pt: 2 , display: "flex", justifyContent:"space-between"}}>
               <LoadingButton
                   size="small"
                   variant="outlined"
@@ -109,6 +110,10 @@ const VideoDisplay = ({ videos }) => {
                   >
                     Download
                 </LoadingButton>
+                <SplitVideo
+                  value={key}
+                  >
+                </SplitVideo>
               </Box>
           </Grid>
         ))}

@@ -30,15 +30,21 @@ public class  VideoController {
     if (query.length() > 0) {
       String urlString = "http://www.youtube.com/watch?v=" + query;
       System.out.println("URL localDownloadFile --> " + urlString);
-      Process p = DownloadToLocalMachine.downloadToLocalMachine(urlString);
-      Thread.sleep(4000);
-      if (!p.isAlive()){
-        DownloadToLocalMachine.splitVideos(query);
-      }
-    } else {
-      System.out.println("Query is empty ==> " + query);
+      DownloadToLocalMachine.downloadToLocalMachine(urlString);
+
     }
+  }
+
+  @PostMapping("/split")
+  public void localSplitFile( @RequestBody String query) throws IOException, InterruptedException {
+    DownloadToLocalMachine.splitVideos(query);
 
   }
+
+
+
+
+
+
 }
 
