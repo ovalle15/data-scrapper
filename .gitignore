@@ -31,3 +31,5 @@ bin/
 target/
 node_modules/
 *.mp4*
+
+src/main/resources/static/built/*
