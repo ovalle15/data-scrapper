@@ -22,14 +22,6 @@ public class DownloadToLocalMachine {
     return proc;
   };
 
-  // public static void setPermissions(String dir) throws IOException,
-  // InterruptedException {
-  // String[] command = { "chmod", "-R", "777", dir };
-  // System.out.println("setPermissions execution?" + command);
-  // ProcessBuilder process = new ProcessBuilder(command);
-  // Process proc = process.start();
-  // proc.waitFor();
-  // }
   public static void installDependencies() throws IOException, InterruptedException {
     String dir = "/src/main/java/com/crawlerao/aoapi/install.sh";
     System.out.println("File to be executed" + System.getProperty("user.dir"));
@@ -51,14 +43,13 @@ public class DownloadToLocalMachine {
     System.out.println("Process exited and ended " + e);
   };
 
-  public static void runShell(String dir, String url) throws IOException, InterruptedException {
-    System.out.println("File to be executed" + System.getProperty("user.dir"));
+  public static void runShell(String dir, String url, String folderName) throws IOException, InterruptedException {
     String l = System.getProperty("user.dir");
-    System.out.println(l + dir);
-    Process proc = Runtime.getRuntime().exec(new String[] { l + dir, url });
+    System.out.println("File to be executed --->" + l + dir + "  Folder name --> " + folderName);
+    Process proc = Runtime.getRuntime().exec(new String[] { l + dir, url, folderName });
     BufferedReader stdInput = new BufferedReader(new InputStreamReader(proc.getInputStream()));
     BufferedReader stdError = new BufferedReader(new InputStreamReader(proc.getErrorStream()));
-    // Output of the command
+    // Line output of file contents
     String r = null;
     while ((r = stdInput.readLine()) != null) {
       System.out.println(r);
@@ -71,23 +62,24 @@ public class DownloadToLocalMachine {
     System.out.println("Process exited and ended " + e);
   }
 
-  public static void downloadToLocalMachine(String videoUrl) throws IOException, InterruptedException {
-    String command = "/src/main/java/com/crawlerao/aoapi/shellScript.sh";
-    runShell(command, videoUrl);
+  public static void downloadToLocalMachine(String videoUrl, String folderName)
+      throws IOException, InterruptedException {
+    String commandPath = "/src/main/java/com/crawlerao/aoapi/yt-dlpScript.sh";
+    runShell(commandPath, videoUrl, folderName);
   };
 
   public static void splitVideos(String query) throws IOException,
       InterruptedException {
     File projectDirectory = new File(System.getProperty("user.home") +
-        "/Desktop/videosAo");
-    System.out.println("projectDirectory: " + projectDirectory);
+        "/Desktop/videosAo/" + query + "/");
+    System.out.println("projectdIRECTORY --> " + projectDirectory);
     String[] listFilesDir = projectDirectory.list();
     assert listFilesDir != null;
-    System.out.println("LIST FILES --> " + listFilesDir);
+    System.out.println("List Files --> " + listFilesDir);
     for (String fileName : listFilesDir) {
       System.out.println("FileName --> " + fileName + " " + listFilesDir);
       if (fileName.contains(query)) {
-        runShell("/src/main/java/com/crawlerao/aoapi/shellRunSplitVideo.sh", fileName);
+        runShell("/src/main/java/com/crawlerao/aoapi/splitVideoScript.sh", fileName, query);
       }
     }
   }

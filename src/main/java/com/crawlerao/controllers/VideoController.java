@@ -7,8 +7,6 @@ import javax.net.ssl.SSLException;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-// import org.springframework.web.bind.annotation.RequestMapping;
-// import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.crawlerao.aoapi.DownloadFile;
 import com.crawlerao.aoapi.DownloadToLocalMachine;
@@ -22,12 +20,8 @@ public class VideoController {
   public HashMap<String, String> getAllVideos(@RequestBody String query)
       throws SSLException, IOException, InterruptedException {
     System.out.println("query on getAllVideos --> " + query);
-    // String command = "/src/main/java/com/crawlerao/aoapi/";
-    // DownloadToLocalMachine.setPermissions(command);
     DownloadToLocalMachine.installDependencies();
     postQuery = DownloadFile.VideoFetchingYouTube(query);
-    // DownloadToLocalMachine.installScenedetect();
-    // DownloadToLocalMachine.installFFmpeg();
     return postQuery;
   }
 
@@ -36,7 +30,7 @@ public class VideoController {
     if (query.length() > 0) {
       String urlString = "http://www.youtube.com/watch?v=" + query;
       System.out.println("URL localDownloadFile --> " + urlString);
-      DownloadToLocalMachine.downloadToLocalMachine(urlString);
+      DownloadToLocalMachine.downloadToLocalMachine(urlString, query);
 
     }
   }
