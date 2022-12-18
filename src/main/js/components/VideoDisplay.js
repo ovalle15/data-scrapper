@@ -111,7 +111,7 @@ const VideoDisplay = ({ videos }) => {
                                 Download
                             </LoadingButton>
                             <SplitVideo
-                                valueIdKey={videoId}
+                                videoIdKey={videoId}
                                 loading={isLoadingBtt}
                                 disabled={isDisabled}
                             ></SplitVideo>

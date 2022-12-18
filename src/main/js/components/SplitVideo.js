@@ -2,16 +2,16 @@ import { LoadingButton } from "@mui/lab";
 import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
 import React, { useState } from "react";
 
-const SplitVideo = ({ disabled, loading, valueIdKey }) => {
+const SplitVideo = ({ disabled, loading, videoIdKey }) => {
     const [isLoadingBtt2, setIsLoadingBtt2] = useState(loading);
 
     const sceneDetect = () => {
-        if (valueIdKey && !loading) {
-            console.log(" KEY on SplitFileOnClick  --> ", valueIdKey);
+        if (videoIdKey && !loading) {
+            console.log(" KEY on SplitFileOnClick  --> ", videoIdKey);
             setIsLoadingBtt2(true);
             return fetch("http://localhost:9000/split", {
                 method: "POST",
-                body: valueIdKey,
+                body: videoIdKey,
             })
                 .then((response) => {
                     console.log("SplitFileOnClick res 1st block:");
@@ -24,7 +24,7 @@ const SplitVideo = ({ disabled, loading, valueIdKey }) => {
                     return data;
                 });
         } else {
-            console.log("valueIdKey is undefined !!! " + valueIdKey);
+            console.log("videoIdKey is undefined !!! " + videoIdKey);
             setIsLoadingBtt2(false);
         }
     };
