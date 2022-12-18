@@ -1,11 +1,9 @@
-import PageTitle from './PageTitle'
-import VideoDisplay from './VideoDisplay'
-import SearchBox from './SearchBox'
-import SplitVideo from './SplitVideo'
+import PageTitle from "./PageTitle";
+import VideoDisplay from "./VideoDisplay";
+import SearchBox from "./SearchBox";
 
 export {
-    PageTitle,
+    PageTitle, //
     VideoDisplay,
     SearchBox,
-    SplitVideo
-}
+};

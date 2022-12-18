@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { styled as muiStyled } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
-import Grid from "@mui/material/Grid";
-import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import { LoadingButton } from "@mui/lab";
-import SplitVideo from "./SplitVideo";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+
+import { DownloadButton, SplitVideoButton } from "../components/buttons";
 
 const Item = muiStyled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -17,57 +17,33 @@ const Item = muiStyled(Paper)(({ theme }) => ({
 }));
 
 const StyledItem = styled(Item)`
-    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    min-height: 28em;
+    /* max-width: 30%; */
 `;
 
 const VideoEmbed = styled.embed`
     display: block;
-    height: 20em;
+    height: 24em;
     margin: 0 auto;
     width: 100%;
 `;
 
 const VideoTitle = styled.span`
-    display: block;
-    margin: 0 15px;
+    align-self: center;
+    display: flex;
+    margin: auto;
     font-size: 1.2em;
+`;
+
+const StyledBox = styled(Box)`
+    display: flex;
+    justify-content: center;
 `;
 
 const VideoDisplay = ({ videos }) => {
     const [isLoadingBtt, setIsLoadingBtt] = useState(false);
-    const [key, updateKey] = useState("");
-    const [isDisabled, setIsDisabled] = useState(true);
-
-    const downloadFileOnClick = (value) => {
-        if (value) {
-            console.log(" KEY on downloadFileOnClick  --> ", value);
-            setIsLoadingBtt(true);
-            return fetch("http://localhost:9000/download", {
-                method: "POST",
-                body: value,
-            })
-                .then((response) => {
-                    console.log("DownloadButton res 1st block:");
-                    setIsLoadingBtt(false);
-                    setIsDisabled(false);
-                    return response.blob();
-                })
-                .then((data) => {
-                    console.log("DownloadButton res 2nd block:", data);
-                    setIsLoadingBtt(false);
-                    return data;
-                });
-        } else {
-            console.log("Key is undefined !!! " + key);
-            setIsLoadingBtt(false);
-        }
-    };
-
-    const updateKeyToFetch = (e) => {
-        const value = (e || {}).target.value;
-        updateKey(value);
-        downloadFileOnClick(value);
-    };
 
     return (
         <Box sx={{ flexGrow: 1, pt: 2 }}>
@@ -78,46 +54,36 @@ const VideoDisplay = ({ videos }) => {
                     sx={{ m: 1 }}
                     variant="outlined"
                     size="large"
+                    // onClick={localOnClick}
                 >
                     Download All
                 </LoadingButton>
             </Grid>
             <Grid container spacing={3}>
-                {Object.keys(videos).map((videoId, index) => (
-                    <Grid item xs={6} key={`${videoId}:${index}`}>
-                        <StyledItem>
-                            <VideoEmbed
-                                src={`https://www.youtube.com/embed/${videoId}`}
-                            />
-                            <VideoTitle>{videos[videoId]}</VideoTitle>
-                        </StyledItem>
-                        <Box
-                            sx={{
-                                pt: 2,
-                                display: "flex",
-                                justifyContent: "space-between",
-                            }}
-                        >
-                            <LoadingButton
-                                size="small"
-                                variant="outlined"
-                                value={videoId}
-                                loading={isLoadingBtt}
-                                onClick={updateKeyToFetch}
-                                startIcon={
-                                    <FileDownloadOutlinedIcon size="large" />
-                                }
+                {Object.keys(videos).map((videoId) => {
+                    return (
+                        <Grid item xs={4} key={videoId}>
+                            <StyledItem>
+                                <VideoEmbed
+                                    src={`https://www.youtube.com/embed/${videoId}`}
+                                />
+                                <VideoTitle>{videos[videoId]}</VideoTitle>
+                            </StyledItem>
+                            <StyledBox
+                                sx={{
+                                    pt: 2,
+                                }}
                             >
-                                Download
-                            </LoadingButton>
-                            <SplitVideo
-                                videoIdKey={videoId}
-                                loading={isLoadingBtt}
-                                disabled={isDisabled}
-                            ></SplitVideo>
-                        </Box>
-                    </Grid>
-                ))}
+                                <DownloadButton videoIdValue={videoId}>
+                                    Download
+                                </DownloadButton>
+                                <SplitVideoButton
+                                    videoIdValue={videoId}
+                                ></SplitVideoButton>
+                            </StyledBox>
+                        </Grid>
+                    );
+                })}
             </Grid>
         </Box>
     );

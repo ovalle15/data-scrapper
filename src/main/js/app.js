@@ -1,36 +1,36 @@
-'use strict';
+"use strict";
 
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 import {
-    BrowserRouter as Router,
+    BrowserRouter as Router, //
     Route,
     Routes,
-    Switch
-} from 'react-router-dom';
+} from "react-router-dom";
+import { ThemeProvider } from "styled-components";
 
-import { routes } from './constants';
-import { Home, Videos } from './pages';
-
+import { routes } from "./constants";
+import { Home } from "./pages";
+import GlobalStyles from "./styles/GlobalStyles";
+import { XmasTheme } from "./styles/themes";
 
 const App = () => {
-
-    console.log({ routes })
+    console.log({ routes });
 
     const publicViews = (
         <Routes>
-
             <Route path={routes.HOME} element={<Home />} />
             <Route path="*" element={<p>Path not resolved</p>} />
-
         </Routes>
     );
+
     return (
-        <Router>
-            <div className="app-main">
-                {publicViews}
-            </div>
-        </Router>
+        <ThemeProvider theme={XmasTheme}>
+            <Router>
+                <GlobalStyles />
+                <div className="app-main">{publicViews}</div>
+            </Router>
+        </ThemeProvider>
     );
 };
 
@@ -38,21 +38,20 @@ let rootEl;
 let attempts = 0;
 const MAX_ATTEMPTS = 50;
 
-let initInterval = setInterval(function() {
-    rootEl = document && document.getElementById('react')
+let initInterval = setInterval(function () {
+    rootEl =
+        document &&
+        typeof document.getElementById === "function" &&
+        document.getElementById("react");
+
     if (rootEl instanceof HTMLElement) {
-        ReactDOM.render(
-            <App />,
-            rootEl
-        );
+        ReactDOM.render(<App />, rootEl);
         clearInterval(initInterval);
         return;
     } else if (attempts >= MAX_ATTEMPTS) {
         clearInterval(initInterval);
         return;
-    } else {
-        attempts++;
     }
+
+    attempts++;
 }, 100);
-
-

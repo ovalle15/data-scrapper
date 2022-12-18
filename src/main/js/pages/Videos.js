@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 
-import { VideoDisplay } from '../components';
+import { VideoDisplay } from "../components";
 
 const Videos = ({
-    pageTitle = "This is the home page"
+    pageTitle = "This is the home page", //
 }) => {
     return (
         <div id="video-content">

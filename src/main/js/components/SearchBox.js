@@ -1,10 +1,33 @@
 import React, { useState } from "react";
+import styled from "styled-components";
+import { LoadingButton } from "@mui/lab";
+import {
+    FormControl, //
+    InputLabel,
+    OutlinedInput,
+    Button,
+} from "@mui/material";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { FormControl, InputLabel, OutlinedInput, Button } from "@mui/material";
-import { LoadingButton } from "@mui/lab";
 
-const SearchBox = ({ onClickHandler, isLoading }) => {
+import { colorHexCodes } from "../styles/styleVars";
+
+const StyledLoadingButton = styled(LoadingButton)`
+    background-color: ${(props) =>
+        props.theme ? `${colorHexCodes.white} !important` : ""};
+    border: solid 2px
+        ${(props) =>
+            props.theme ? `${colorHexCodes.cranberryRed} !important` : ""};
+    color: ${(props) =>
+        props.theme && !props.loading
+            ? `${colorHexCodes.cranberryRed} !important`
+            : ""};
+`;
+
+const SearchBox = ({
+    onClickHandler, //
+    isLoading,
+}) => {
     const [inputValue, setInputValue] = useState("");
 
     const modifyString = () => {
@@ -15,6 +38,7 @@ const SearchBox = ({ onClickHandler, isLoading }) => {
         console.log("final --> " + v.join("+"));
         return v.join("+");
     };
+
     const updateState = (e) => {
         setInputValue(e.target.value);
     };
@@ -34,7 +58,7 @@ const SearchBox = ({ onClickHandler, isLoading }) => {
                     label="Terms"
                 />
             </FormControl>
-            <LoadingButton
+            <StyledLoadingButton
                 loading={isLoading}
                 sx={{ m: 1 }}
                 variant="outlined"
@@ -42,7 +66,7 @@ const SearchBox = ({ onClickHandler, isLoading }) => {
                 onClick={localOnClick}
             >
                 Search
-            </LoadingButton>
+            </StyledLoadingButton>
         </Box>
     );
 };
